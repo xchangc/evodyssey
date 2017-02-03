@@ -22,12 +22,11 @@ public class AttackArea : MonoBehaviour {
 	}
 
 	void OnTriggerEnter(Collider other) {
-		if (other.tag == "Food") {
-			Destroy (other.gameObject);
-			player.increaseDefenseAttribute (1.0f);
-		} else if (other.tag == "Power") {
-			SetDamage (3.0f);
-			Destroy (other.gameObject);
+		if (other.tag == "Enemy") {
+			if (controller.GetIsAttacking ()) {
+				Instantiate (attackParticle, transform.position, attackParticle.transform.rotation);
+				other.SendMessage ("takeDamage", damage);
+			}
 		}
 	}
 

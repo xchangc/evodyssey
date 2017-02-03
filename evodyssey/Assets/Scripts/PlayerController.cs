@@ -11,7 +11,6 @@ public class PlayerController : MonoBehaviour {
 	public float minStamina = 0.0f;
 	public float attackRate = 20.0f;
 
-	public ParticleSystem attackParticle;
 	public Transform attackArea;
 
 	public bool useInitialCameraDistance = false;
