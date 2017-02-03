@@ -306,9 +306,56 @@ public class Player : MonoBehaviour {
 			health -= 1.0f;
 		}
 	}
-		
+	
+    // Get Player Health	
 	public float getPlayerHealth()
 	{
 		return health;
 	}
+
+    // Get Player Stamina
+    public float getPlayerStamina()
+    {
+        return stamina;
+    }
+
+    public int getPlayerAttackLevel()
+    {
+        return attackLevel;
+    }
+
+    public int getPlayerDefenseLevel()
+    {
+        return defenseLevel;
+    }
+
+    public int getPlayerSizeLevel()
+    {
+        return sizeLevel;
+    }
+
+    public int getPlayerSpeedLevel()
+    {
+        return speedLevel;
+    }
+
+    public float getPlayerAttackStats()
+    {
+        return attackAttribute;
+    }
+
+    public float getPlayerDefenseStats()
+    {
+        return defenseAttribute;
+    }
+
+    public float getPlayerSizeStats()
+    {
+        return sizeAttribute;
+    }
+
+    public float getPlayerSpeedStats()
+    {
+        return speedAttribute;
+    }
 }

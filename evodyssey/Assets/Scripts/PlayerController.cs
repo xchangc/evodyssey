@@ -59,7 +59,8 @@ public class PlayerController : MonoBehaviour {
 			} else if (stamina <= minStamina) {
 				stamina = 0;
 				deltaTimeSpeed = 1.0f;
-			}
+                SetIsDashing(false);
+            }
 			SetIsDashing (true);
 		} else {
 			if (stamina < maxStamina) {
@@ -68,7 +69,6 @@ public class PlayerController : MonoBehaviour {
 				stamina = maxStamina;
 			}
 			deltaTimeSpeed = 1.0f;
-			isDashing = false;
 			SetIsDashing (false);
 		}
 
