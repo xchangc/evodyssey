@@ -5,6 +5,7 @@ public class AttackArea : MonoBehaviour {
 
 	public PlayerController controller;
 	public ParticleSystem attackParticle;
+	public Player player;
 	public Enemy enemy;
 
 	private float damage;
@@ -12,6 +13,7 @@ public class AttackArea : MonoBehaviour {
 	// Use this for initialization
 	void Start () {
 		damage = 3.0f;
+		player = player.GetComponent<Player> ();
 	}
 	
 	// Update is called once per frame
@@ -22,6 +24,7 @@ public class AttackArea : MonoBehaviour {
 	void OnTriggerEnter(Collider other) {
 		if (other.tag == "Food") {
 			Destroy (other.gameObject);
+			player.increaseDefenseAttribute (1.0f);
 		} else if (other.tag == "Power") {
 			SetDamage (3.0f);
 			Destroy (other.gameObject);

@@ -4,7 +4,12 @@ using System.Collections;
 public class Enemy : MonoBehaviour {
 
 	public float enemyHealth;
+	public GameObject player;
 
+
+	void Awake () {
+		player = GameObject.FindGameObjectWithTag ("Player");
+	}
 	// Use this for initialization
 	void Start () {
 		enemyHealth = 6;
@@ -12,12 +17,15 @@ public class Enemy : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-		if (enemyHealth <= 0) {
-			Destroy (this.gameObject);
-		}
 	}
 
 	void takeDamage(float dmg) {
+
 		enemyHealth -= dmg;
+
+		if (enemyHealth <= 0) {
+			Destroy (this.gameObject);
+			player.GetComponent<Player> ().increaseAttackAttribute (1.0f);
+		}
 	}
 }

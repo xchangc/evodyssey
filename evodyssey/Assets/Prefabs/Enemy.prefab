@@ -93,6 +93,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   enemyHealth: 6
+  player: {fileID: 11499652, guid: 7fe1f833cde1c984891ea4b5d1b9c15f, type: 2}
 --- !u!136 &13641036
 CapsuleCollider:
   m_ObjectHideFlags: 1
