@@ -6,10 +6,9 @@ public class PlayerController : MonoBehaviour {
 	public float distance = 1.0f;
 	public float deltaTimeSpeed = 1.0f;
 	public float rotationSpeed = 2.5f;
-	public float stamina = 60.0f;
-	public float maxStamina = 60.0f;
-	public float minStamina = 0.0f;
-	public float attackRate = 20.0f;
+	private float stamina;
+	private float maxStamina = 60.0f;
+	private float minStamina = 0.0f;
 
 	public Transform attackArea;
 
@@ -22,6 +21,7 @@ public class PlayerController : MonoBehaviour {
 
 	void Start () {
 
+		stamina = maxStamina;
 		isDashing = false;
 		isAttacking = false;
 
@@ -73,17 +73,9 @@ public class PlayerController : MonoBehaviour {
 		}
 
 		// Attack
-		if (Input.GetMouseButtonDown (0)) {
-			if (attackRate >= 20) {
-				isAttacking = true;
-				attackRate = 0;
-			}
+		if (Input.GetMouseButton (0)) {
+			isAttacking = true;
 		} else {
-			if (attackRate < 20) {
-				attackRate += 1;
-			} else if (attackRate >= 20) {
-				attackRate = 20;
-			}
 			isAttacking = false;
 		}
 	}
@@ -100,5 +92,9 @@ public class PlayerController : MonoBehaviour {
 
 	public bool GetIsAttacking() {
 		return isAttacking;
+	}
+
+	public float GetStamina() {
+		return stamina;
 	}
 }

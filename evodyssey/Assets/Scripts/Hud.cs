@@ -6,16 +6,19 @@ public class Hud : MonoBehaviour {
 
 	public Text text;
 	public Player player;
+	public PlayerController controller;
 
 	// Use this for initialization
 	void Start () {
 		text = GetComponent<Text>();
 		player = GameObject.FindGameObjectWithTag("Player").GetComponent<Player>();
+		controller = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerController>();
 	}
 	
 	// Update is called once per frame
 	void Update () {
-        text.text = "Health: " + player.getPlayerHealth().ToString() + "\n" + "\n" +
+        text.text = "Health: " + player.getPlayerHealth().ToString() + "\n" +
+					"Stamina: " + controller.GetStamina().ToString() + "\n" +
                     "Attack Level: " + player.getPlayerAttackLevel().ToString() + "\n" +
                     "Defense Level: " + player.getPlayerDefenseLevel().ToString() + "\n" +
                     "Size Level: " + player.getPlayerSizeLevel().ToString() + "\n" + 
