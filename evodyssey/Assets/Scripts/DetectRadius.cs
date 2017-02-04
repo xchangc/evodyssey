@@ -22,7 +22,7 @@ public class DetectRadius : MonoBehaviour {
             {
                 if (controller.GetIsDashing())
                 {
-                    player.increaseSpeedAttribute(0.01f);
+                    player.increaseSpeedAttribute(1.0f);
                     chasing = true;
                 }
             }
