@@ -267,20 +267,9 @@ public class Player : MonoBehaviour {
 	}
 
 	// Trigger Collision
-	void OnTriggerEnter(Collider other)
+	void OnCollisionEnter(Collision other)
 	{
-		if (other.tag == "Food")
-		{
-			increaseSizeAttribute(1.0f);
-			health += 0.5f;
-			Destroy(other.gameObject);
-		}
-
-		if (other.tag == "Spike")
-		{
-			increaseDefenseAttribute(1.0f);
-			health -= 1.0f;
-		}
+		
 	}
 	
     // Get Player Health	
@@ -288,44 +277,64 @@ public class Player : MonoBehaviour {
 	{
 		return health;
 	}
-		
+
+	// Get Player Attack Level
     public int getPlayerAttackLevel()
     {
         return attackLevel;
     }
 
+	// Get Player Defense Level
     public int getPlayerDefenseLevel()
     {
         return defenseLevel;
     }
 
+	// get Player Size Level
     public int getPlayerSizeLevel()
     {
         return sizeLevel;
     }
 
+	// Get Player Speed Level
     public int getPlayerSpeedLevel()
     {
         return speedLevel;
     }
 
+	// Get Player Attack Stats
     public float getPlayerAttackStats()
     {
         return attackAttribute;
     }
 
+	// Get Player Defense Stats
     public float getPlayerDefenseStats()
     {
         return defenseAttribute;
     }
 
+	// Get Player Size Stats
     public float getPlayerSizeStats()
     {
         return sizeAttribute;
     }
 
+	// Get Player Speed Stats
     public float getPlayerSpeedStats()
     {
         return speedAttribute;
     }
+
+	// Increase Player Health
+	public void increaseHealth(float f)
+	{
+		health += f;
+	}
+
+	// Decrease Player Health
+	public void decreaseHealth(float f)
+	{
+		health -= f;
+	}
 }

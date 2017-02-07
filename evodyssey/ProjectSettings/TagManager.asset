@@ -8,6 +8,8 @@ TagManager:
   - Food
   - Enemy
   - Spike
+  - Player Head
+  - Player Body
   layers:
   - Default
   - TransparentFX

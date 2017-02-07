@@ -11,7 +11,8 @@ GameObject:
   - 33: {fileID: 3393254}
   - 135: {fileID: 13591140}
   - 23: {fileID: 2310866}
-  - 54: {fileID: 5450070}
+  - 114: {fileID: 11421376}
+  - 54: {fileID: 5412368}
   m_Layer: 0
   m_Name: Spike
   m_TagString: Spike
@@ -65,7 +66,7 @@ MeshFilter:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 136866}
   m_Mesh: {fileID: 10207, guid: 0000000000000000e000000000000000, type: 0}
---- !u!54 &5450070
+--- !u!54 &5412368
 Rigidbody:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
@@ -80,6 +81,17 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 126
   m_CollisionDetection: 0
+--- !u!114 &11421376
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 136866}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: abb558e1e66523f4980482afdb3d70fd, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!135 &13591140
 SphereCollider:
   m_ObjectHideFlags: 1
