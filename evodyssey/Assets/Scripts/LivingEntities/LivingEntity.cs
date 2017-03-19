@@ -5,22 +5,26 @@ public class LivingEntity : MonoBehaviour
 {
 
     #region Variables
-
-    float mHealth;
-    float mMaxHealth;
-    float mAttack;
-    float mDefense;
-    float mSpeed;
-    float mStamina;
-
-    bool mCanDash;
-    bool mCanAttack;
-
-    LivingEntity mPredator;
-
-    LivingEntity mPrey;
-
-    Ability mAbility;
+    [Header("Base Class Variables")]
+    [Space(10)]
+    [Header("Health is the current health")]
+    public float mHealth;
+    [Header("Max Health is also the size")]
+    public float mMaxHealth;
+    [Space(20)]
+    public float mAttack;
+    public float mDefense;
+    [Space(20)]
+    public float mSpeed;
+    public float mStamina;
+    [Space(20)]
+    public bool mCanDash;
+    public bool mCanAttack;
+    [Space(20)]
+    public LivingEntity mPredator;
+    public LivingEntity mPrey;
+    [Space(20)]
+    public Ability mAbility;
 
     #endregion
 
