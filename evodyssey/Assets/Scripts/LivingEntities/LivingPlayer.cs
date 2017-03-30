@@ -26,7 +26,7 @@ public class LivingPlayer : LivingEntity
     public float mSizeAttribute;
     public float mSpeedAttribute;
 
-    List<Mutation> mMutations;
+    List<Mutation> mMutations = new List<Mutation>();
 
     #endregion
 
@@ -36,7 +36,6 @@ public class LivingPlayer : LivingEntity
     [Space(10)]
     public float mMovementDistance;
     public float mMovementDeltaTimeSpeed;
-    public float mMovementRotationSpeed;
     [Space(10)]
     public float mMaxStamina;
     public float mMinStamina;
@@ -111,7 +110,6 @@ public class LivingPlayer : LivingEntity
     public float GetSpeedAttribute() { return mSpeedAttribute; }
     public float GetMovementDistance() { return mMovementDistance; }
     public float GetMovementTimeSpeed() { return mMovementDeltaTimeSpeed; }
-    public float GetMovementRotation() { return mMovementRotationSpeed; }
     public float GetMaxStamina() { return mMaxStamina; }
     public float GetMinStamina() { return mMinStamina; }
     public float GetActualDistance() { return mActualDistance; }
@@ -143,6 +141,7 @@ public class LivingPlayer : LivingEntity
     {
         MovementInit();
         AttributeInit();
+        InitEntity();
     }
 
     void MovementInit()
@@ -245,10 +244,15 @@ public class LivingPlayer : LivingEntity
         Quaternion rotation = Quaternion.AngleAxis(-angle, Vector3.up);
         transform.rotation = Quaternion.Slerp(transform.rotation, rotation, GetMovementRotation() * Time.deltaTime);
 
+        Vector3 mVelocity = Vector3.Normalize(direction);
+
+
+
         // Look at the mouse position
         //transform.LookAt (Camera.main.ScreenToWorldPoint (mousePosition));
 
         // Move towards mouse position
+        //GetRigidBody().AddForce(direction * GetSpeed() * Time.deltaTime * GetMovementTimeSpeed());
         transform.position = Vector3.Lerp(transform.position, Camera.main.ScreenToWorldPoint(mousePosition), Time.deltaTime * GetMovementTimeSpeed());
 
         // Dashing

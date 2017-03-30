@@ -5,27 +5,25 @@ using UnityEngine.UI;
 public class Hud : MonoBehaviour {
 
 	public Text text;
-	public Player player;
-	public PlayerController controller;
+	public LivingPlayer player;
 
 	// Use this for initialization
 	void Start () {
 		text = GetComponent<Text>();
-		player = GameObject.FindGameObjectWithTag("Player").GetComponent<Player>();
-		controller = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerController>();
+		player = GameObject.FindGameObjectWithTag("Player").GetComponent<LivingPlayer>();
 	}
 	
 	// Update is called once per frame
 	void Update () {
-        text.text = "Health: " + player.getPlayerHealth().ToString() + "\n" +
-					"Stamina: " + controller.GetStamina().ToString() + "\n" +
-                    "Attack Level: " + player.getPlayerAttackLevel().ToString() + "\n" +
-                    "Defense Level: " + player.getPlayerDefenseLevel().ToString() + "\n" +
-                    "Size Level: " + player.getPlayerSizeLevel().ToString() + "\n" + 
-                    "Speed Level: " + player.getPlayerSpeedLevel().ToString() + "\n" + "\n" +
-                    "Attack Stats: " + player.getPlayerAttackStats().ToString() + "\n" +
-                    "Defense Stats: " + player.getPlayerDefenseStats().ToString() + "\n" +
-                    "Size Stats: " + player.getPlayerSizeStats().ToString() + "\n" +
-                    "Speed Stats: " + player.getPlayerSpeedStats().ToString() + "\n";
+        text.text = "Health: " + player.GetHealth().ToString() + "\n" +
+					"Stamina: " + player.GetStamina().ToString() + "\n" +
+                    "Attack Level: " + player.GetAttackLevel().ToString() + "\n" +
+                    "Defense Level: " + player.GetDefenseLevel().ToString() + "\n" +
+                    "Size Level: " + player.GetSizeLevel().ToString() + "\n" + 
+                    "Speed Level: " + player.GetSpeedLevel().ToString() + "\n" + "\n" +
+                    "Attack Stats: " + player.GetAttackAttribute().ToString() + "\n" +
+                    "Defense Stats: " + player.GetDefenseAttribute().ToString() + "\n" +
+                    "Size Stats: " + player.GetSizeAttribute().ToString() + "\n" +
+                    "Speed Stats: " + player.GetSpeedAttribute().ToString() + "\n";
 	}
 }

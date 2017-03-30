@@ -1,7 +1,8 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class SteeringBehavior : MonoBehaviour
+[System.Serializable]
+public class SteeringBehavior : ScriptableObject
 {
     #region variables
 
@@ -21,7 +22,8 @@ public class SteeringBehavior : MonoBehaviour
     public void SetActive(bool active) { mActive = active; }
     public bool IsActive() { return mActive; }
 
-    public virtual Vector2 Calculate() { return new Vector2(-1,-1); }
+    public virtual Vector3 Calculate(LivingEntity entity, LivingEntity extra) { return new Vector2(-1,-1); }
+    public virtual void Init(LivingEntity entity) { }
 
     #endregion
 }

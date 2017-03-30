@@ -1,4 +1,4 @@
 sceneSetups:
-- path: Assets/Scenes/Yash/YashCoral.unity
+- path: Assets/Scenes/LevelDesign_02.unity
   isLoaded: 1
   isActive: 1

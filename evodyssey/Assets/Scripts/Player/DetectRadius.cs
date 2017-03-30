@@ -9,7 +9,6 @@ public class DetectRadius : MonoBehaviour {
 
     void Start()
     {
-        controller = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerController>();
         player = GameObject.FindGameObjectWithTag("Player").GetComponent<Player>();
         chasing = false;
     }

@@ -8,19 +8,31 @@ public class SteeringModule : MonoBehaviour
     #region Variables
 
     LivingEntity mAgent;
-    List<SteeringBehavior> mBehaviors;
+    List<SteeringBehavior> mBehaviors = new List<SteeringBehavior>();
 
     #endregion
 
     #region Functions
 
     public void SetAgent(LivingEntity newAgent) { mAgent = newAgent; }
-    public void AddBehavior(SteeringBehavior behavior) { mBehaviors.Add(behavior); }
+    public void AddBehavior(SteeringBehavior behavior)
+    {
+        if(behavior != null)
+        {
+            Debug.Log("Accepted behavior: " + behavior);
+            mBehaviors.Add(behavior);
+        }
+        else
+        {
+            Debug.Log("Trying to pass a null behavior: " + behavior);
+        }
+
+    }
     public SteeringBehavior GetBehavior(string name)
     {
         foreach (SteeringBehavior item in mBehaviors)
         {
-            if(item.GetName() == name)
+            if (item.GetName() == name)
             {
                 return item;
             }
@@ -29,15 +41,15 @@ public class SteeringModule : MonoBehaviour
         return null;
     }
 
-    public Vector2 Calculate()
+    public Vector3 Calculate()
     {
-        Vector2 finalVector = new Vector2(0,0);
+        Vector3 finalVector = new Vector3(0, 0, 0);
 
         foreach (SteeringBehavior item in mBehaviors)
         {
-            if(item.IsActive())
+            if (item.IsActive())
             {
-                finalVector += item.Calculate();
+                finalVector += item.Calculate(mAgent,mAgent.GetFocusedEntity());
             }
         }
 
