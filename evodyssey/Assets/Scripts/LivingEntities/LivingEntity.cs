@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections;
+using System.Collections.Generic;
 
 [RequireComponent(typeof(Rigidbody))]
 public class LivingEntity : MonoBehaviour
@@ -7,6 +8,8 @@ public class LivingEntity : MonoBehaviour
 
     #region Variables
     [Header("Base Class Variables")]
+    [Space(10)]
+    public string FishName;
     [Space(10)]
     [Header("Health is the current health")]
     public float mHealth;
@@ -23,8 +26,8 @@ public class LivingEntity : MonoBehaviour
     public bool mCanDash;
     public bool mCanAttack;
     [Space(20)]
-    public LivingEntity mPredator;
-    public LivingEntity mPrey;
+    public string mPredator;
+    public string mPrey;
     public GameObject mDesiredFood;
     [Space(20)]
     public Ability mAbility;
@@ -36,9 +39,12 @@ public class LivingEntity : MonoBehaviour
 
     private Rigidbody mRigidBody;
 
-    private Transform mDestination;
+    private Transform mTarget;
 
     private LivingEntity mFocusedEntity;
+
+    List<LivingEntity> mLocalEnemies = new List<LivingEntity>();
+    List<LivingEntity> mLocalKind = new List<LivingEntity>();
 
 
 
@@ -52,15 +58,18 @@ public class LivingEntity : MonoBehaviour
     public float GetDefense() { return mDefense; }
     public float GetSpeed() { return mSpeed; }
     public float GetStamina() { return mStamina; }
-    public LivingEntity GetPredator() { return mPredator; }
-    public LivingEntity GetPrey() { return mPrey; }
+    public string GetPredator() { return mPredator; }
+    public string GetPrey() { return mPrey; }
     public Ability GetAbility() { return mAbility; }
     public Vector3 GetVelocity() { return mVelocity; }
     public Transform GetLocalTransform() { return mLocalTransform; }
     public Rigidbody GetRigidBody() { return mRigidBody; }
     public float GetMovementRotation() { return mMovementRotationSpeed; }
-    public Transform GetDestination() { return mDestination; }
+    public Transform GetTarget() { return mTarget; }
     public LivingEntity GetFocusedEntity() { return mFocusedEntity; }
+    public string GetFishName() { return FishName; }
+    public List<LivingEntity> GetLocalKind() { return mLocalKind; }
+    public List<LivingEntity> GetLocalEnemies() { return mLocalEnemies; }
 
     public bool IsAbleToDash() { return mCanDash; }
     public bool IsAbleToAttack() { return mCanAttack; }
@@ -73,18 +82,56 @@ public class LivingEntity : MonoBehaviour
     public void SetStamina(float stam) { mStamina = stam; }
     public void SetDash(bool can) { mCanDash = can; }
     public void SetAbleToAttack(bool can) { mCanAttack = can; }
-    public void SetPredator(LivingEntity predator) { mPredator = predator; } // TODO:: fix these to work with all the predators, or put a type in and get true/false...
-    public void SetPrey(LivingEntity prey) { mPrey = prey; }
+    public void SetPredator(string predator) { mPredator = predator; } // TODO:: fix these to work with all the predators, or put a type in and get true/false...
+    public void SetPrey(string prey) { mPrey = prey; }
     public void SetAbility(Ability newAbility) { mAbility = newAbility; }
     public void SetVelocity(Vector3 newVelocity) { mVelocity = newVelocity; }
-    public void SetDestination(Transform newDestination) { mDestination = newDestination; }
+    public void SetTarget(Transform newTarget) { mTarget = newTarget; }
     public void SetFocusedEntity(LivingEntity entity) { mFocusedEntity = entity; }
-    
+    public void SetFishName(string newName) { FishName = newName; }
+
+    public void AddLocalKind(LivingEntity fish)
+    {
+        if(!mLocalKind.Contains(fish) && fish.GetFishName() == GetFishName())
+        {
+            mLocalKind.Add(fish);
+        }
+    }
+
+    public void AddLocalEnemy(LivingEntity fish)
+    {
+        if (!mLocalEnemies.Contains(fish))
+        {
+            mLocalEnemies.Add(fish);
+        }
+    }
+
+    public void RemoveLocalKind(LivingEntity fish)
+    {
+        if (mLocalKind.Contains(fish))
+        {
+            mLocalKind.Remove(fish);
+        }
+    }
+
+    public void RemoveLocalEnemy(LivingEntity fish)
+    {
+        if (mLocalEnemies.Contains(fish))
+        {
+            mLocalEnemies.Remove(fish);
+        }
+    }
+
+
 
     public void InitEntity()
     {
         mRigidBody = GetComponent<Rigidbody>();
+        mSpeed *= 100;
     }
+
+
+
     public virtual void Movement() { }
     public virtual void UseAbility() { }
 

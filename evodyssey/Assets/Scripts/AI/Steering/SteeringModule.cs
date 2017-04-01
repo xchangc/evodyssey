@@ -19,7 +19,7 @@ public class SteeringModule : MonoBehaviour
     {
         if(behavior != null)
         {
-            Debug.Log("Accepted behavior: " + behavior);
+            behavior.Init(mAgent);
             mBehaviors.Add(behavior);
         }
         else

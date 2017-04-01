@@ -10,6 +10,4 @@ public class EvoEnums : MonoBehaviour
         Defense,
         Escape
     }
-
-
 }

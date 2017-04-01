@@ -15,12 +15,15 @@ public class LittleFish : LivingEnemy
 
     #region Variables
 
-    List<LivingEntity> mLocalEnemies;
-    List<LittleFish> mLocalKind;
-
     WanderBehavior mWander;
     SeekBehavior mSeek;
     PersuitBehavior mPersuit;
+    FleeBehavior mFlee;
+    EvadeBehavior mEvade;
+    ObstacleAvoidBehavior mAvoid;
+    AllignmentBehavior mAllign;
+    CohesionBehavior mCohesion;
+    SeparationBehavior mSeparate;
 
     #endregion
 
@@ -32,27 +35,43 @@ public class LittleFish : LivingEnemy
 
         SetPosition(transform.position);
 
-        mWander = new WanderBehavior();
-        mWander.Init(this);
+        SetTarget(player.transform);
 
-        mSeek = new SeekBehavior();
-        mSeek.Init(this);
-
-        mPersuit = new PersuitBehavior();
-        mPersuit.Init(this);
-
-
-
-        SetDestination(player.transform);
         SetFocusedEntity(player.GetComponent<LivingEntity>());
-        
+
+        mWander = new WanderBehavior();
+        mSeek = new SeekBehavior();
+        mPersuit = new PersuitBehavior();
+        mFlee = new FleeBehavior();
+        mEvade = new EvadeBehavior();
+        mAvoid = new ObstacleAvoidBehavior();
+        mAllign = new AllignmentBehavior();
+        mCohesion = new CohesionBehavior();
+        mSeparate = new SeparationBehavior();
+
+
         GetSteeringModule().AddBehavior(mWander);
         GetSteeringModule().AddBehavior(mSeek);
         GetSteeringModule().AddBehavior(mPersuit);
+        GetSteeringModule().AddBehavior(mFlee);
+        GetSteeringModule().AddBehavior(mEvade);
+        GetSteeringModule().AddBehavior(mAvoid);
+        GetSteeringModule().AddBehavior(mAllign);
+        GetSteeringModule().AddBehavior(mCohesion);
+        GetSteeringModule().AddBehavior(mSeparate);
 
-        GetSteeringModule().GetBehavior("Wander").SetActive(false);
+
         GetSteeringModule().GetBehavior("Seek").SetActive(false);
-        GetSteeringModule().GetBehavior("Persuit").SetActive(true);
+        GetSteeringModule().GetBehavior("Persuit").SetActive(false);
+        GetSteeringModule().GetBehavior("Flee").SetActive(false);
+        GetSteeringModule().GetBehavior("Evade").SetActive(false);
+        GetSteeringModule().GetBehavior("Wander").SetActive(true);
+        GetSteeringModule().GetBehavior("Avoid").SetActive(true);
+        GetSteeringModule().GetBehavior("Allign").SetActive(true);
+        GetSteeringModule().GetBehavior("Cohesion").SetActive(true);
+        GetSteeringModule().GetBehavior("Separate").SetActive(true);
+
+
 
         //add states here
         //GetStateMachine().ChangeState((int)LittleFishStates.Wander);
@@ -61,17 +80,7 @@ public class LittleFish : LivingEnemy
     void Update()
     {
         Movement();
-
-
-
     }
-
-    void CalculateFish()
-    {
-
-    }
-
-
 
     #endregion
 

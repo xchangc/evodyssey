@@ -101,6 +101,34 @@ public class LivingEnemy : LivingEntity
 
     }
 
+    void OnTriggerEnter(Collider col)
+    {
+        if(col.tag == "Entity")
+        {
+            LivingEntity temp = col.GetComponent<LivingEntity>();
+            if(temp.GetFishName() == GetFishName())
+            {
+                AddLocalKind(temp);
+            }
+            if (GetPredator() == temp.GetFishName())
+            {
+                AddLocalEnemy(temp);
+            }
+        }
+        else if(col.tag == "Player")
+        {
+            LivingEntity temp = col.GetComponent<LivingEntity>();
+            if (temp.GetFishName() == GetFishName())
+            {
+                AddLocalKind(temp);
+            }
+            if (GetPredator() == temp.GetFishName())
+            {
+                AddLocalEnemy(temp);
+            }
+        }
+    }
+
     #endregion
 
     #endregion

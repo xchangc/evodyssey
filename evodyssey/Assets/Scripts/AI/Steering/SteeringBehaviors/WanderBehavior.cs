@@ -8,8 +8,9 @@ public class WanderBehavior : SteeringBehavior
 
     #region Variables
 
-    public float mWanderRadius = 5.0f;
-    public float mWanderDistance = 5.0f;
+    float mWanderRadius = 4.0f;
+    float mWanderDistance = 5.0f;
+
 
     Transform mWanderTarget;
 
@@ -27,10 +28,12 @@ public class WanderBehavior : SteeringBehavior
     public override Vector3 Calculate(LivingEntity entity, LivingEntity extra)
     {
 
-        //Debug.Log("Pos: " + mWanderTarget.x + "," + mWanderTarget.y + "," + mWanderTarget.z);
 
-        float newX = Random.Range(-0.3f, 0.3f);
-        float newZ = Random.Range(-0.3f, 0.3f);
+
+        float newX = Random.Range(-10.0f, 10.0f);
+        float newZ = Random.Range(-10.0f, 10.0f);
+
+
 
         mWanderTarget.localPosition += new Vector3(newX, 0, newZ);
         mWanderTarget.localPosition = Vector3.Normalize(mWanderTarget.localPosition);
@@ -42,7 +45,7 @@ public class WanderBehavior : SteeringBehavior
         Debug.DrawLine(entity.transform.position, mWanderTarget.transform.position);
 
         //Debug.Log("wander distance: " + mWanderDistance);
-        
+
         //Debug.Log("local: " + localTarget.x + "," + localTarget.y + "," + localTarget.z);
 
         Vector3 worldTarget = mWanderTarget.position;

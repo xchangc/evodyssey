@@ -1,4 +1,4 @@
 sceneSetups:
-- path: Assets/Scenes/LevelDesign_02.unity
+- path: Assets/Scenes/GrahamsTestingLevel.unity
   isLoaded: 1
   isActive: 1

@@ -19,9 +19,9 @@ public class SeekBehavior : SteeringBehavior
 
     public override Vector3 Calculate(LivingEntity entity, LivingEntity extra)
     {
-        Vector3 destination = entity.GetDestination().position;
+        Vector3 target = entity.GetTarget().position;
 
-        Vector3 DesiredVelocity = Vector3.Normalize(destination - entity.transform.position) * entity.GetSpeed();
+        Vector3 DesiredVelocity = Vector3.Normalize(target - entity.transform.position) * entity.GetSpeed();
 
         return ((DesiredVelocity - entity.GetVelocity()) * 2);
 

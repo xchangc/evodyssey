@@ -5,7 +5,6 @@ public class PersuitBehavior : SteeringBehavior
 {
     #region Variables
 
-    float mTime = 3;
 
     #endregion
 
@@ -19,7 +18,11 @@ public class PersuitBehavior : SteeringBehavior
     public override Vector3 Calculate(LivingEntity entity, LivingEntity extra)
     {
 
-        Vector3 futurePosition = extra.transform.position + extra.GetVelocity() * mTime;
+        Vector3 distance = extra.transform.position - entity.transform.position;
+
+        float updatesAhead = distance.sqrMagnitude / entity.GetSpeed();
+
+        Vector3 futurePosition = extra.transform.position + extra.GetVelocity() * updatesAhead;
 
         Vector3 DesiredVelocity = Vector3.Normalize(futurePosition - entity.transform.position) * entity.GetSpeed();
 
