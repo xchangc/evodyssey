@@ -26,6 +26,6 @@ public class Hud : MonoBehaviour {
                     "Size Stats: " + player.GetSizeAttribute().ToString() + "\n" +
                     "Speed Stats: " + player.GetSpeedAttribute().ToString() + "\n";
         //test test test
-        int lol = 1;
+        //int lol = 1;
 	}
 }
