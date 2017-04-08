@@ -103,19 +103,7 @@ public class LivingEnemy : LivingEntity
 
     void OnTriggerEnter(Collider col)
     {
-        if(col.tag == "Entity")
-        {
-            LivingEntity temp = col.GetComponent<LivingEntity>();
-            if(temp.GetFishName() == GetFishName())
-            {
-                AddLocalKind(temp);
-            }
-            if (GetPredator() == temp.GetFishName())
-            {
-                AddLocalEnemy(temp);
-            }
-        }
-        else if(col.tag == "Player")
+        if (col.tag == "Entity")
         {
             LivingEntity temp = col.GetComponent<LivingEntity>();
             if (temp.GetFishName() == GetFishName())
@@ -127,6 +115,72 @@ public class LivingEnemy : LivingEntity
                 AddLocalEnemy(temp);
             }
         }
+        else if (col.tag == "Player")
+        {
+            LivingEntity temp = col.GetComponent<LivingEntity>();
+            if (temp.GetFishName() == GetFishName())
+            {
+                AddLocalKind(temp);
+            }
+            if (GetPredator() == temp.GetFishName())
+            {
+                AddLocalEnemy(temp);
+            }
+        }
+        else
+        {
+            EnvFood temp = col.GetComponent<EnvFood>();
+            if (temp != null)
+            {
+                if(temp.FoodName == mDesiredFood)
+                {
+                    SetFocusedFood(temp);
+                }
+            }
+
+        }
+
+    }
+
+    void OnTriggerExit(Collider col)
+    {
+        if (col.tag == "Entity")
+        {
+            LivingEntity temp = col.GetComponent<LivingEntity>();
+            if (GetLocalKind().Contains(temp))
+            {
+                RemoveLocalKind(temp);
+            }
+            if (GetLocalEnemies().Contains(temp))
+            {
+                RemoveLocalEnemy(temp);
+            }
+        }
+        else if (col.tag == "Player")
+        {
+            LivingEntity temp = col.GetComponent<LivingEntity>();
+            if (GetLocalKind().Contains(temp))
+            {
+                RemoveLocalKind(temp);
+            }
+            if (GetLocalEnemies().Contains(temp))
+            {
+                RemoveLocalEnemy(temp);
+            }
+        }
+        else
+        {
+            //EnvFood temp = col.GetComponent<EnvFood>();
+            //if (temp != null)
+            //{
+            //    if (GetFocusedFood() == temp)
+            //    {
+            //        SetFocusedFood(null);
+            //    }
+            //}
+
+        }
+
     }
 
     #endregion

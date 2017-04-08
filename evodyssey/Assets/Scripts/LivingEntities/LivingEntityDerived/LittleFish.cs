@@ -7,7 +7,7 @@ public class LittleFish : LivingEnemy
 {
     public enum LittleFishStates
     {
-        Wander,
+        Wander = 0,
         Flee,
         SeekFood
     }
@@ -24,6 +24,10 @@ public class LittleFish : LivingEnemy
     AllignmentBehavior mAllign;
     CohesionBehavior mCohesion;
     SeparationBehavior mSeparate;
+
+    WanderState mWanderState;
+    EvadeState mEvadeState;
+    FindFoodState mFindFoodState;
 
     #endregion
 
@@ -72,13 +76,23 @@ public class LittleFish : LivingEnemy
         GetSteeringModule().GetBehavior("Separate").SetActive(true);
 
 
+        mWanderState = new WanderState();
+        mEvadeState = new EvadeState();
+        mFindFoodState = new FindFoodState();
 
-        //add states here
-        //GetStateMachine().ChangeState((int)LittleFishStates.Wander);
+
+        GetStateMachine().AddState(mWanderState);
+        GetStateMachine().AddState(mEvadeState);
+        GetStateMachine().AddState(mFindFoodState);
+
+        GetStateMachine().SetEntity(this);
+
+        GetStateMachine().ChangeState((int)LittleFishStates.Wander);
     }
 
     void Update()
     {
+        GetStateMachine().UpdateMachine();
         Movement();
     }
 

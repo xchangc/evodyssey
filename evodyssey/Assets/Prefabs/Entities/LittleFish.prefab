@@ -105,8 +105,8 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 110146}
   m_LocalRotation: {x: 0, y: -0.011399038, z: 0, w: 0.9999351}
-  m_LocalPosition: {x: 33.253544, y: 1, z: -54.649677}
-  m_LocalScale: {x: 0.117821895, y: 0.11782187, z: 0.11782187}
+  m_LocalPosition: {x: -29.58, y: 22.588259, z: 77.79}
+  m_LocalScale: {x: 0.35145897, y: 0.35145885, z: 0.3514588}
   m_LocalEulerAnglesHint: {x: 0, y: -1.3062999, z: 0}
   m_Children:
   - {fileID: 418438}
@@ -271,11 +271,15 @@ MonoBehaviour:
   mSpeed: 10
   mMovementRotationSpeed: 10
   mStamina: 0
+  mHunger: 0
+  mHungerWarningLevel: 0
+  mHungerMax: 0
+  mHungerIncreaseRate: 0
   mCanDash: 0
   mCanAttack: 0
-  mPredator: 
+  mPredator: Jim
   mPrey: 
-  mDesiredFood: {fileID: 0}
+  mDesiredFood: 
   mAbility: {fileID: 0}
   mLocalTransform: {fileID: 418438}
 --- !u!135 &13505354
@@ -288,7 +292,7 @@ SphereCollider:
   m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
-  m_Radius: 7.02
+  m_Radius: 15.79
   m_Center: {x: 0, y: 0, z: 0}
 --- !u!136 &13623500
 CapsuleCollider:
