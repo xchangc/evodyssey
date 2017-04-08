@@ -23,12 +23,17 @@ public class LivingEntity : MonoBehaviour
     public float mMovementRotationSpeed;
     public float mStamina;
     [Space(20)]
+    public float mHunger;
+    public float mHungerWarningLevel;
+    public float mHungerMax;
+    public float mHungerIncreaseRate;
+    [Space(20)]
     public bool mCanDash;
     public bool mCanAttack;
     [Space(20)]
     public string mPredator;
     public string mPrey;
-    public GameObject mDesiredFood;
+    public string mDesiredFood;
     [Space(20)]
     public Ability mAbility;
 
@@ -42,6 +47,8 @@ public class LivingEntity : MonoBehaviour
     private Transform mTarget;
 
     private LivingEntity mFocusedEntity;
+
+    private EnvFood mFocusedFood;
 
     List<LivingEntity> mLocalEnemies = new List<LivingEntity>();
     List<LivingEntity> mLocalKind = new List<LivingEntity>();
@@ -70,7 +77,22 @@ public class LivingEntity : MonoBehaviour
     public string GetFishName() { return FishName; }
     public List<LivingEntity> GetLocalKind() { return mLocalKind; }
     public List<LivingEntity> GetLocalEnemies() { return mLocalEnemies; }
+    public float GetHunger() { return mHunger;}
+    public float GetMaxHunger() { return mHungerMax; }
+    public EnvFood GetFocusedFood() { return mFocusedFood; }
 
+    public bool IsHungry()
+    {
+        if (mHunger >= mHungerWarningLevel)
+        {
+            return true;
+        }
+        else
+        {
+            return false;
+        }
+
+    }
     public bool IsAbleToDash() { return mCanDash; }
     public bool IsAbleToAttack() { return mCanAttack; }
 
@@ -89,6 +111,9 @@ public class LivingEntity : MonoBehaviour
     public void SetTarget(Transform newTarget) { mTarget = newTarget; }
     public void SetFocusedEntity(LivingEntity entity) { mFocusedEntity = entity; }
     public void SetFishName(string newName) { FishName = newName; }
+    public void SetHunger(float newHunger) { mHunger = newHunger; }
+    public void SetMaxHunger(float newMaxHunger) { mHungerMax = newMaxHunger; }
+    public void SetFocusedFood(EnvFood mFood) { mFocusedFood = mFood; }
 
     public void AddLocalKind(LivingEntity fish)
     {
@@ -102,6 +127,7 @@ public class LivingEntity : MonoBehaviour
     {
         if (!mLocalEnemies.Contains(fish))
         {
+            Debug.Log("added enemy");
             mLocalEnemies.Add(fish);
         }
     }
@@ -118,6 +144,7 @@ public class LivingEntity : MonoBehaviour
     {
         if (mLocalEnemies.Contains(fish))
         {
+            Debug.Log("remove enemy");
             mLocalEnemies.Remove(fish);
         }
     }

@@ -10,7 +10,7 @@ public class StateMachine : MonoBehaviour
 
     LivingEnemy mEntity;
     State mCurrentState;
-    List<State> mStates;
+    List<State> mStates = new List<State>();
 
     #endregion
 
@@ -21,9 +21,9 @@ public class StateMachine : MonoBehaviour
         mCurrentState = null;
     }
 
-    void Update()
+    public void UpdateMachine()
     {
-        if(mCurrentState && mEntity)
+        if(mCurrentState != null && mEntity != null)
         {
             mCurrentState.UpdateState(mEntity);
         }
@@ -31,7 +31,8 @@ public class StateMachine : MonoBehaviour
 
     public void AddState(State newState)
     {
-        if(newState)
+        //Debug.Log("added State: " + newState);
+        if(newState != null)
         {
             mStates.Add(newState);
         }
@@ -39,10 +40,11 @@ public class StateMachine : MonoBehaviour
 
     public void ChangeState(int index)
     {
-        if(mCurrentState)
+        if(mCurrentState != null)
         {
             mCurrentState.Exit(mEntity);
         }
+
 
         mCurrentState = mStates[index];
         mCurrentState.Enter(mEntity);

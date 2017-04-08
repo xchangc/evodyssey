@@ -27,7 +27,7 @@ public class EvadeBehavior : SteeringBehavior
 
         Vector3 DesiredVelocity = Vector3.Normalize(entity.transform.position - futurePosition) * entity.GetSpeed();
 
-        return ((DesiredVelocity - entity.GetVelocity()) * 2);
+        return ((DesiredVelocity - entity.GetVelocity()) * 50);
 
     }
 
