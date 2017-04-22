@@ -14,7 +14,7 @@ public class AttackArea : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
-		damage = 3.0f;
+		damage = player.mAttack;
 		maxAttackRate = 60.0f;
 		attackRate = maxAttackRate;
 		player = player.GetComponent<LivingPlayer> ();
@@ -33,12 +33,13 @@ public class AttackArea : MonoBehaviour {
 	}
 
 	void OnTriggerEnter(Collider other) {
-		if (other.tag == "Enemy") {
+		if (other.tag == "Entity") {
 			if (player.IsAttacking()) {
 				if (attackRate >= maxAttackRate)
 				{
 					Instantiate (attackParticle, transform.position, attackParticle.transform.rotation);
-					other.SendMessage ("takeDamage", damage);
+                    LivingEnemy livEnemy = other.GetComponent<LivingEnemy>();
+                    livEnemy.Damage(damage);
 					attackRate = 0.0f;
 				}
 			}
@@ -46,19 +47,20 @@ public class AttackArea : MonoBehaviour {
 	}
 
 	void OnTriggerStay(Collider other) {
-		if (other.tag == "Enemy") {
+		if (other.tag == "Entity") {
 			if (player.IsAttacking()) {
 				if (attackRate >= maxAttackRate)
 				{
 					Instantiate (attackParticle, transform.position, attackParticle.transform.rotation);
-					other.SendMessage ("takeDamage", damage);
-					attackRate = 0.0f;
+                    LivingEnemy livEnemy = other.GetComponent<LivingEnemy>();
+                    livEnemy.Damage(damage);
+                    attackRate = 0.0f;
 				}
 			}
 		}
 	}
 
-	void SetDamage(float dmg) {
+	void SetDamage(int dmg) {
 		damage += dmg;
 	}
 }	

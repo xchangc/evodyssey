@@ -6,7 +6,7 @@ public class WanderState : State
     public override void Enter(LivingEnemy entity)
     {
         ChangeBehaviorsToWander(entity);
-        Debug.Log("Entered WanderState");
+
     }
 
     public override void UpdateState(LivingEnemy entity)

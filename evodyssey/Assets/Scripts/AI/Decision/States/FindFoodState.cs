@@ -4,14 +4,17 @@ using System.Collections;
 public class FindFoodState : State
 {
 
+    public float mEatDistance = 10.0f;
 
+    public float mTime;
 
     public override void Enter(LivingEnemy entity)
     {
 
-        Debug.Log("Entered foodState");
         entity.SetTarget(entity.GetFocusedFood().transform);
-        ChangeBehaviorsToPersuit(entity);
+        entity.SetFocusedEntity(null);
+        ChangeBehaviorsToSeek(entity);
+        mTime = Time.time + 5;
     }
 
     public override void UpdateState(LivingEnemy entity)
@@ -23,25 +26,40 @@ public class FindFoodState : State
             entity.GetStateMachine().ChangeState((int)LittleFish.LittleFishStates.Flee);
         }
 
-        if (entity.GetFocusedFood() == null 
+        if (entity.GetFocusedFood() == null
             || !entity.IsHungry())
         {
             //no food, or not hungry
             entity.GetStateMachine().ChangeState((int)LittleFish.LittleFishStates.Wander);
         }
+        if (entity.GetFocusedFood() != null)
+        {
 
+            if (Vector3.Distance(entity.transform.position, entity.GetFocusedFood().transform.position) <= mEatDistance)
+            {
+                if (Time.time >= mTime)
+                {
+                    mTime = Time.time + 5;
+                    entity.GetFocusedFood().mFoodHealth -= 1;
+                    entity.AddHunger(entity.GetFocusedFood().mHungerIncrease);
+                    entity.AddHealth(entity.GetFocusedFood().mHealthIncrease);
+                }
+            }
+
+        }
     }
+
 
     public override void Exit(LivingEnemy entity)
     {
-
+        entity.SetFocusedFood(null);
     }
 
 
-    void ChangeBehaviorsToPersuit(LivingEnemy entity)
+    void ChangeBehaviorsToSeek(LivingEnemy entity)
     {
-        entity.GetSteeringModule().GetBehavior("Seek").SetActive(false);
-        entity.GetSteeringModule().GetBehavior("Persuit").SetActive(true);
+        entity.GetSteeringModule().GetBehavior("Seek").SetActive(true);
+        entity.GetSteeringModule().GetBehavior("Persuit").SetActive(false);
         entity.GetSteeringModule().GetBehavior("Flee").SetActive(false);
         entity.GetSteeringModule().GetBehavior("Evade").SetActive(false);
 

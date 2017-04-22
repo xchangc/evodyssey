@@ -15,6 +15,7 @@ public class LivingEntity : MonoBehaviour
     public float mHealth;
     [Header("Max Health is also the size")]
     public float mMaxHealth;
+    public float mHealthDecreaseRate;
     [Space(20)]
     public float mAttack;
     public float mDefense;
@@ -31,9 +32,9 @@ public class LivingEntity : MonoBehaviour
     public bool mCanDash;
     public bool mCanAttack;
     [Space(20)]
-    public string mPredator;
-    public string mPrey;
-    public string mDesiredFood;
+    public string[] mPredators;
+    public string[] mPreys;
+    public string[] mDesiredFoods;
     [Space(20)]
     public Ability mAbility;
 
@@ -53,6 +54,7 @@ public class LivingEntity : MonoBehaviour
     List<LivingEntity> mLocalEnemies = new List<LivingEntity>();
     List<LivingEntity> mLocalKind = new List<LivingEntity>();
 
+    bool mDead = false;
 
 
     #endregion
@@ -65,8 +67,9 @@ public class LivingEntity : MonoBehaviour
     public float GetDefense() { return mDefense; }
     public float GetSpeed() { return mSpeed; }
     public float GetStamina() { return mStamina; }
-    public string GetPredator() { return mPredator; }
-    public string GetPrey() { return mPrey; }
+    public string[] GetPredators() { return mPredators; }
+    public string[] GetPrey() { return mPreys; }
+    public string[] GetDesiredFood() { return mDesiredFoods; }
     public Ability GetAbility() { return mAbility; }
     public Vector3 GetVelocity() { return mVelocity; }
     public Transform GetLocalTransform() { return mLocalTransform; }
@@ -77,7 +80,7 @@ public class LivingEntity : MonoBehaviour
     public string GetFishName() { return FishName; }
     public List<LivingEntity> GetLocalKind() { return mLocalKind; }
     public List<LivingEntity> GetLocalEnemies() { return mLocalEnemies; }
-    public float GetHunger() { return mHunger;}
+    public float GetHunger() { return mHunger; }
     public float GetMaxHunger() { return mHungerMax; }
     public EnvFood GetFocusedFood() { return mFocusedFood; }
 
@@ -95,6 +98,10 @@ public class LivingEntity : MonoBehaviour
     }
     public bool IsAbleToDash() { return mCanDash; }
     public bool IsAbleToAttack() { return mCanAttack; }
+    public bool IsDead()
+    {
+        return mDead;
+    }
 
     public void SetHealth(float health) { mHealth = health; }
     public void SetSize(float size) { mMaxHealth = size; }
@@ -104,8 +111,6 @@ public class LivingEntity : MonoBehaviour
     public void SetStamina(float stam) { mStamina = stam; }
     public void SetDash(bool can) { mCanDash = can; }
     public void SetAbleToAttack(bool can) { mCanAttack = can; }
-    public void SetPredator(string predator) { mPredator = predator; } // TODO:: fix these to work with all the predators, or put a type in and get true/false...
-    public void SetPrey(string prey) { mPrey = prey; }
     public void SetAbility(Ability newAbility) { mAbility = newAbility; }
     public void SetVelocity(Vector3 newVelocity) { mVelocity = newVelocity; }
     public void SetTarget(Transform newTarget) { mTarget = newTarget; }
@@ -114,10 +119,39 @@ public class LivingEntity : MonoBehaviour
     public void SetHunger(float newHunger) { mHunger = newHunger; }
     public void SetMaxHunger(float newMaxHunger) { mHungerMax = newMaxHunger; }
     public void SetFocusedFood(EnvFood mFood) { mFocusedFood = mFood; }
+    public void SetDead(bool died) { mDead = died; }
+
+    public void AddHunger(int food)
+    {
+        mHunger -= food;
+        if(mHunger <= 0)
+        {
+            mHunger = 0;
+        }
+    }
+
+    public void AddHealth(int hp)
+    {
+        mHealth += hp;
+        if (mHealth >= mMaxHealth)
+        {
+            mHealth = mMaxHealth;
+        }
+    }
+
+    public void Damage(float dmg)
+    {
+        mHealth -= dmg;
+        if(mHealth <= 0)
+        {
+            mDead = true;
+            mHealth = 0;
+        }
+    }
 
     public void AddLocalKind(LivingEntity fish)
     {
-        if(!mLocalKind.Contains(fish) && fish.GetFishName() == GetFishName())
+        if (!mLocalKind.Contains(fish) && fish.GetFishName() == GetFishName())
         {
             mLocalKind.Add(fish);
         }
@@ -127,7 +161,7 @@ public class LivingEntity : MonoBehaviour
     {
         if (!mLocalEnemies.Contains(fish))
         {
-            Debug.Log("added enemy");
+
             mLocalEnemies.Add(fish);
         }
     }
@@ -144,7 +178,6 @@ public class LivingEntity : MonoBehaviour
     {
         if (mLocalEnemies.Contains(fish))
         {
-            Debug.Log("remove enemy");
             mLocalEnemies.Remove(fish);
         }
     }
@@ -156,7 +189,6 @@ public class LivingEntity : MonoBehaviour
         mRigidBody = GetComponent<Rigidbody>();
         mSpeed *= 100;
     }
-
 
 
     public virtual void Movement() { }

@@ -8,7 +8,7 @@ public class EvadeState : State
     public override void Enter(LivingEnemy entity)
     {
 
-        Debug.Log("Entered evadeState");
+
 
         LivingEntity tempEnt = GetClosestEnemy(entity);
 
@@ -79,7 +79,7 @@ public class EvadeState : State
 
         }
 
-        Debug.Log("Closest: " + closest);
+
 
         return closest;
 
